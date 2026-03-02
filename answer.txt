@@ -1,7 +1,0 @@
--Git lưu file hay lưu snapshot? Git lưu vào snapshot, giúp có thể xem và quay lại trạng thái trước đó 
--Vì sao commit nhỏ giúp debug? 
-Dễ xác định nguyên nhân để có thể sửa lỗi, quay lại trạng thái của code và có thể xem lại bất kì khi nào 
--Nếu main bị lỗi do merge sai thì chuyện gì xảy ra? 
-Vì Main đại diện cho: 
-Code ổn định Code có thể deploy production Nếu merge sai thì code sẽ không chạy được, tính năng bị hỏng,.. 
--Git giúp gì khi rollback production bug? Có, Git có thể cho quay lại trạng thái ổn định trước đó trong vài phút thay vì sửa bug
