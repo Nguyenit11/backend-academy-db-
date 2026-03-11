@@ -1,0 +1,47 @@
+Transaction là gì?
+- Transaction là một nhóm nhiều câu lệnh SQL được thực thi như một khối duy nhất.
+Nó có 2 kết quả:
+- Thành công toàn bộ
+- Thất bại toàn bộ
+
+Ví dụ:
+    BEGIN
+    INSERT order
+    INSERT order_item
+    UPDATE stock
+    COMMIT
+
+ACID là gì?
+    ACID là 4 nguyên tắc của transaction.
+    - Atomicity (quan trọng nhất)
+        Atomicity = tính nguyên tử
+    Nghĩa là:
+        tất cả thành công
+        hoặc tất cả thất bại
+
+   - Consistency
+        Sau transaction:
+            database phải hợp lệ 
+        Ví dụ:
+            Constraint:
+            stock >= 0
+            Transaction không được làm:
+            stock = -5
+
+    - Isolation
+        Transaction này không thấy dữ liệu chưa commit của transaction khác.
+        Ví dụ:
+            User A:
+            update stock
+            User B:
+            không thấy thay đổi cho tới khi commit
+    
+    - Durability
+        Sau khi COMMIT
+        - Dữ liệu:
+            không mất
+        - Ngay cả khi:
+            server crash
+
+Oversell problem
+stock = 1
