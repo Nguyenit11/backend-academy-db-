@@ -1,0 +1,77 @@
+DAY 8 – ISOLATION LEVEL & CONCURRENCY BASICS
+Concurrency là gì?
+- Concurrency là nhiều transaction chạy cùng lúc
+
+Ví dụ hệ thống bán hàng: 
+stock = 10
+- 2 user thấy và đều mua => User a -5, User b -5
+
+=> stock =0; xem có vẻ đúng nhưng nếu
+- User A trừ 7
+- User B trừ 7 => stock sẽ âm 
+=> Sinh ra Concurrency Problem
+
+*Vì sao backend luôn có concurrency?
+=> Vì nếu 1 hệ thống thực tế có nhiều users mua cùng lúc 1 sản phẩm
+=> Nếu không kiểm soát: database sai dữ liệu
+-----------------------------------------------------------------------------
+
+Isolation trong ACID
+ACID gồm:
+- A → Atomicity
+- C → Consistency
+- I → Isolation
+- D → Durability
+
+*Isolation nghĩa là:
+=> Transaction này không bị ảnh hưởng bởi transaction khác.
+*Consistency nghĩa là:
+=> Giúp bảo vệ toàn vẹn dữ liệu bằng cách ép buộc tuân thủ các ràng buộc (constraints), 
+quy tắc (rules), và trigger đã định nghĩa
+*Atomicity nghĩa là:
+=> Đảm bảo 1 là thất bại hoàn toàn, 2 thành công tất cả
+Không để trạng thái 1 user thành công 1 user thất bại như chuyển tiền
+*Durability nghĩa là:
+=> Đảm bảo giao dịch đã commit (xác nhận) sẽ được lưu trữ vĩnh viễn trong hệ thống,
+ngay cả khi gặp sự cố nghiêm trọng như mất điện, sập nguồn hay lỗi phần cứng
+-----------------------------------------------------------------------------
+
+3 lỗi nổi tiếng của concurrency
+Dirty Read, Non-Reapeatable Read, Phantom Read
+-----------------------------------------------------------------------------
+
+Cơ chế Lock
+Lock là cơ chế database dùng để ngăn nhiều transaction sửa cùng một dữ liệu cùng lúc
+Khi một transaction đang sửa dữ liệu -> Database sẽ khóa row đó lại -> Transaction khác phải chờ
+
+Ví dụ:
+Website bán laptop.
+Database:
+product_stock = 1
+
+Hai khách hàng cùng mua.
+
+***Nếu không có Lock
+User A đọc stock = 1
+User B đọc stock = 1
+
+User A mua → stock = 0
+User B mua → stock = -1
+
+➡ Database bị sai dữ liệu
+
+***Nếu có Lock
+User A lock row
+User B phải chờ
+
+User A mua xong → commit
+User B mới được đọc
+-----------------------------------------------------------------------------
+
+Test Row Lock (FOR UPDATE)
+FOR UPDATE tạo Exclusive Lock
+
+Ý nghĩa:
+Transaction khác không được update
+Phải chờ transaction hiện tại commit
+-----------------------------------------------------------------------------
