@@ -1,0 +1,13 @@
+Concurrency problem là gì?
+→ Là các vấn đề phát sinh khi nhiều transaction truy cập và thay đổi dữ liệu cùng lúc 
+dẫn đến sai lệch hoặc mất mát dữ liệu.
+
+Dirty read xảy ra khi nào?
+→ Khi một transaction có thể đọc dữ liệu chưa được commit từ transaction khác.
+
+Isolation level cao hơn có lợi và hại gì?
+→ Lợi: Bảo vệ dữ liệu chính xác hơn, tránh các lỗi như dirty read, non-repeatable read, phantom read.
+→ Hại: Có thể giảm hiệu suất do tăng độ chờ, khóa tài nguyên lâu hơn.
+
+Vì sao SELECT FOR UPDATE quan trọng?
+→ Giúp lock các dòng dữ liệu để tránh các transaction khác thay đổi dữ liệu đó, đảm bảo tính toàn vẹn khi cập nhật/thao tác song song.
